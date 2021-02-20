@@ -1,5 +1,4 @@
 import { Gender, Host } from '../../../types';
-import { useGetCurrentLocation } from '..';
 import {
   hostDescriptions,
   hostLocationOffsets,
@@ -8,6 +7,7 @@ import {
   hostProfilePictures,
   hostTags
 } from '../../constants';
+import { CurrentLocationContainer } from '../../containers';
 
 const generateMockHosts = (latitude: number, longitude: number) => {
   const hosts = Array(5)
@@ -34,13 +34,11 @@ const generateMockHosts = (latitude: number, longitude: number) => {
 };
 
 export const useMockHosts = () => {
-  const { data: geolocation } = useGetCurrentLocation();
+  const { currentLocation } = CurrentLocationContainer.useContainer();
 
-  if (!geolocation) return null;
+  if (!currentLocation) return null;
 
-  const {
-    coords: { latitude, longitude }
-  } = geolocation;
+  const { latitude, longitude } = currentLocation;
 
   const hosts = generateMockHosts(latitude, longitude);
 

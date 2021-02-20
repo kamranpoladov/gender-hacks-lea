@@ -1,5 +1,5 @@
+import { CurrentLocationContainer } from '../../../containers';
 import { LatLngLiteral } from '../../../../types';
-import { useGetCurrentLocation } from '../../../services';
 
 const calculateDistance = (
   location1: LatLngLiteral,
@@ -34,13 +34,11 @@ const metersToWords = (meters: number) => {
 };
 
 export const useCalculateDistance = (hostLocation: LatLngLiteral) => {
-  const { data: geolocation } = useGetCurrentLocation();
+  const { currentLocation } = CurrentLocationContainer.useContainer();
 
-  if (!geolocation) return null;
+  if (!currentLocation) return null;
 
-  const {
-    coords: { latitude: latitude, longitude: longitude }
-  } = geolocation;
+  const { latitude, longitude } = currentLocation;
 
   const distance = calculateDistance(hostLocation, { latitude, longitude });
 
