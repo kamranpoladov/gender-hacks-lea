@@ -38,4 +38,4 @@ export const hostDescriptions: string[] = [
 
 export const hostsRefs = Array(HOSTS_AMOUNT)
   .fill(0)
-  .map(() => createRef<HTMLDivElement>());
+  .map(() => createRef<HTMLInputElement>());

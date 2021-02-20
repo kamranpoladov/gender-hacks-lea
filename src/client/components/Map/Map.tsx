@@ -94,8 +94,13 @@ function Map() {
                 transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
               }}
               onClick={() => {
-                host.ref.current?.click();
-
+                if (host.ref.current) {
+                  host.ref.current.click();
+                  window.scrollTo({
+                    top: host.ref.current.offsetTop,
+                    behavior: 'smooth'
+                  });
+                }
                 setViewport({
                   ...viewport,
                   ...host.location,

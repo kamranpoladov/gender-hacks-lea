@@ -23,5 +23,5 @@ export type Host = {
   gender: Gender;
   Icon: () => JSX.Element;
   profileColor: string;
-  ref: RefObject<HTMLDivElement>;
+  ref: RefObject<HTMLInputElement>;
 };

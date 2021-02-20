@@ -8,12 +8,18 @@ export const GlobalStyle = createGlobalStyle`
   body,
   #root {
     height: 100%;
+    margin: auto;
+  }
+
+  html {
+    display: table;
   }
 
   body {
-    min-width: 320px;
-    margin-left: 10px;
+    display: table-cell;
+    vertical-align: middle;
     font-family: Roboto, Arial, sans-serif;
+    min-width: 320px;
   }
 
   a: {

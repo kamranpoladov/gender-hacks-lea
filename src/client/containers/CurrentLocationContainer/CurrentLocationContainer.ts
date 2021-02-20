@@ -8,10 +8,14 @@ export const CurrentLocationContainer = createContainer(() => {
 
   useEffect(() => {
     (async () => {
-      const location = await getCurrentGeolocation();
+      try {
+        const location = await getCurrentGeolocation();
 
-      const { latitude, longitude } = location.coords;
-      setCurrentLocation({ latitude, longitude });
+        const { latitude, longitude } = location.coords;
+        setCurrentLocation({ latitude, longitude });
+      } catch (err) {
+        setCurrentLocation({ latitude: 50, longitude: 7 });
+      }
     })();
   }, []);
 
