@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
-
-import { useMockHosts } from '../../services';
+import { MockHostsContainer } from '../../containers';
 
 const geolocateStyle = {
   top: 0,
@@ -19,6 +18,7 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 const SIZE = 20;
 
 const Map = ({ children }: { children?: React.ReactNode }) => {
+  const { hosts } = MockHostsContainer.useContainer();
   const [viewport, setViewport] = useState({
     latitude: 37.8,
     longitude: 96,
@@ -26,8 +26,6 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
     bearing: 0,
     pitch: 0
   });
-
-  const hosts = useMockHosts();
 
   return (
     <MapGL
@@ -45,7 +43,7 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
         auto
       />
 
-      {hosts?.map((host, i) => (
+      {hosts.map((host, i) => (
         <Marker
           key={`location-market--${i}`}
           latitude={host.location.latitude}
@@ -61,7 +59,7 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
               transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
             }}
             onClick={() => {
-              'not empty';
+              host.ref.current?.click();
             }}
           >
             <path d={ICON} />

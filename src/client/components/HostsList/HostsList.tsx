@@ -1,12 +1,10 @@
 import { Card, CardHeader, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 import { HostCard } from './components';
-import { useMockHosts } from '../../services';
+import { MockHostsContainer } from '../../containers';
 
 export const HostsList = () => {
-  const hosts = useMockHosts();
-
-  if (!hosts) return null;
+  const { hosts } = MockHostsContainer.useContainer();
 
   return (
     <Card elevation={1}>

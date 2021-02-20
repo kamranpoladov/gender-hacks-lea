@@ -60,6 +60,7 @@ export const HostCard = ({ host }: HostCardProps) => {
   return (
     <Box className={styles.root}>
       <Card
+        ref={host.ref}
         className={styles.profile}
         style={{ backgroundColor: host.profileColor }}
         onClick={handleCollapse}
