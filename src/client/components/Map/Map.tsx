@@ -8,8 +8,7 @@ import MapGL, {
   ViewportProps
 } from 'react-map-gl';
 import { SelectedHostLocationContainer } from '../../containers';
-
-import { useMockHosts } from '../../services';
+import { MockHostsContainer } from '../../containers';
 
 const geolocateStyle = {
   top: 0,
@@ -26,6 +25,8 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 const SIZE = 20;
 
 function Map() {
+  const { hosts } = MockHostsContainer.useContainer();
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const [viewport, setViewport] = useState<ViewportProps>({
     latitude: 40.4093,
     longitude: 49.8671,
@@ -48,8 +49,6 @@ function Map() {
     });
   }, [selectedHostLocation]);
 
-  const hosts = useMockHosts();
-
   return (
     <MapGL
       {...viewport}
@@ -66,7 +65,7 @@ function Map() {
         auto
       />
 
-      {hosts?.map((host, i) => (
+      {hosts.map((host, i) => (
         <Marker
           key={`location-market--${i}`}
           latitude={host.location.latitude}
@@ -82,6 +81,8 @@ function Map() {
               transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
             }}
             onClick={() => {
+              host.ref.current?.click();
+
               setViewport({
                 ...viewport,
                 ...host.location,

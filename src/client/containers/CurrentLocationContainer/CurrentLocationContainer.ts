@@ -11,10 +11,9 @@ export const CurrentLocationContainer = createContainer(() => {
       const location = await getCurrentGeolocation();
 
       const { latitude, longitude } = location.coords;
-
       setCurrentLocation({ latitude, longitude });
     })();
-  }, []);
+  }, [currentLocation]);
 
   return { currentLocation, setCurrentLocation };
 });

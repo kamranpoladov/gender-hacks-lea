@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { LatLngLiteral } from './location';
 
 export enum HostTags {
@@ -22,4 +23,5 @@ export type Host = {
   gender: Gender;
   Icon: () => JSX.Element;
   profileColor: string;
+  ref: RefObject<HTMLDivElement>;
 };

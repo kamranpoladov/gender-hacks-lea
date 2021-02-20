@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Gender, Host } from '../../../types';
 import {
   hostDescriptions,
@@ -5,12 +6,14 @@ import {
   hostNames,
   hostProfileColors,
   hostProfilePictures,
+  hostsRefs,
+  HOSTS_AMOUNT,
   hostTags
 } from '../../constants';
 import { CurrentLocationContainer } from '../../containers';
 
 const generateMockHosts = (latitude: number, longitude: number) => {
-  const hosts = Array(5)
+  const hosts = Array(HOSTS_AMOUNT)
     .fill(0)
     .map((_, i) => {
       const index = i % 3;
@@ -24,7 +27,8 @@ const generateMockHosts = (latitude: number, longitude: number) => {
         tags: hostTags[index],
         gender: Math.random() > 0.5 ? Gender.M : Gender.F,
         Icon: hostProfilePictures[index],
-        profileColor: hostProfileColors[index]
+        profileColor: hostProfileColors[index],
+        ref: hostsRefs[i]
       };
 
       return host;
@@ -36,11 +40,13 @@ const generateMockHosts = (latitude: number, longitude: number) => {
 export const useMockHosts = () => {
   const { currentLocation } = CurrentLocationContainer.useContainer();
 
-  if (!currentLocation) return null;
-
-  const { latitude, longitude } = currentLocation;
-
-  const hosts = generateMockHosts(latitude, longitude);
+  const hosts = useMemo(() => {
+    if (!currentLocation) return [];
+    return generateMockHosts(
+      currentLocation.latitude,
+      currentLocation.longitude
+    );
+  }, [currentLocation]);
 
   return hosts;
 };
