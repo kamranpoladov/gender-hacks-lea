@@ -29,16 +29,12 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
 
   const hosts = useMockHosts();
 
-  useEffect(() => {
-    console.log(process.env.REACT_APP_MAPBOX_TOKEN);
-  }, [process.env.REACT_APP_MAPBOX_TOKEN]);
-
   return (
     <MapGL
       {...viewport}
       width="350px"
       height="400px"
-      mapStyle="mapbox://styles/mapbox/dark-v9"
+      mapStyle="mapbox://styles/rafasofizada/ckldphltm2udo17ql8m94lfaz"
       onViewportChange={setViewport}
       mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
     >
