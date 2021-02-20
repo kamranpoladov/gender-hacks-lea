@@ -8,14 +8,13 @@ import {
   Box
 } from '@material-ui/core';
 import { useCalculateDistance } from '../hooks';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { HostCardOverview } from './HostCardOverview';
 import { HostCardFull } from './HostCardFull';
-import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import { SelectedHostLocationContainer } from '../../../containers';
 
 type HostCardProps = {
   host: Host;
-  setSelectedHostLocation: Dispatch<SetStateAction<LatLngLiteral | undefined>>;
 };
 
 const useStyles = makeStyles(theme =>
@@ -37,7 +36,10 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export const HostCard = ({ host, setSelectedHostLocation }: HostCardProps) => {
+export const HostCard = ({ host }: HostCardProps) => {
+  const {
+    setSelectedHostLocation
+  } = SelectedHostLocationContainer.useContainer();
   const styles = useStyles();
 
   const [isCollapsed, setIsCollapsed] = useState(false);

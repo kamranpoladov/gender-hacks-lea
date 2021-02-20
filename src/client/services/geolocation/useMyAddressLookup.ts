@@ -5,7 +5,7 @@ import {
 import { useQuery } from 'react-query';
 import { QUERY_KEYS } from '../../constants';
 import { addressLookup } from './useAddressLookup';
-import { getCurrentGeolocation } from './useGetCurrentLocation';
+import { getCurrentGeolocation } from './getCurrentLocation';
 
 type MyAdress = { latlng: LatLngLiteral; address: AddressComponent[][] };
 

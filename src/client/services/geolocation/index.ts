@@ -1,3 +1,3 @@
-export * from './useGetCurrentLocation';
+export * from './getCurrentLocation';
 export * from './useAddressLookup';
 export * from './useMyAddressLookup';
