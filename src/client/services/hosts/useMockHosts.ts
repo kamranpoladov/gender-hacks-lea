@@ -1,7 +1,7 @@
-import { LoremIpsum } from 'lorem-ipsum';
 import { Gender, Host } from '../../../types';
 import { useGetCurrentLocation } from '..';
 import {
+  hostDescriptions,
   hostLocationOffsets,
   hostNames,
   hostProfileColors,
@@ -10,24 +10,13 @@ import {
 } from '../../constants';
 
 const generateMockHosts = (latitude: number, longitude: number) => {
-  const lorem = new LoremIpsum({
-    sentencesPerParagraph: {
-      min: 2,
-      max: 4
-    },
-    wordsPerSentence: {
-      min: 4,
-      max: 10
-    }
-  });
-
-  const hosts = Array(10)
+  const hosts = Array(5)
     .fill(0)
     .map((_, i) => {
       const index = i % 3;
       const host: Host = {
         name: hostNames[i],
-        description: lorem.generateParagraphs(1),
+        description: hostDescriptions[i],
         location: {
           lat: latitude - hostLocationOffsets[i],
           lng: longitude - hostLocationOffsets[i]
