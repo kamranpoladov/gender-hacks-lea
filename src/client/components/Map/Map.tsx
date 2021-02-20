@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import MapGL, { GeolocateControl, Marker } from 'react-map-gl';
+import { useState } from 'react';
+import MapGL, { GeolocateControl, Marker, ViewportProps } from 'react-map-gl';
 
 import { useMockHosts } from '../../services';
+import { viewportFlyTo } from './viewportFlyTo';
 
 const geolocateStyle = {
   top: 0,
@@ -19,7 +20,8 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 const SIZE = 20;
 
 const Map = ({ children }: { children?: React.ReactNode }) => {
-  const [viewport, setViewport] = useState({
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const [viewport, setViewport] = useState<ViewportProps>({
     latitude: 37.8,
     longitude: 96,
     zoom: 3,
@@ -61,7 +63,7 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
               transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
             }}
             onClick={() => {
-              'not empty';
+              viewportFlyTo(viewport, setViewport, host.location);
             }}
           >
             <path d={ICON} />
