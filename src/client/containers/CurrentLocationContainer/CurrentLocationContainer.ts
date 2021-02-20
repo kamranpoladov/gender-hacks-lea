@@ -1,6 +1,6 @@
-import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
 import { useEffect, useState } from 'react';
 import { createContainer } from 'unstated-next';
+import { LatLngLiteral } from '../../../types';
 import { getCurrentGeolocation } from '../../services';
 
 export const CurrentLocationContainer = createContainer(() => {
@@ -10,9 +10,9 @@ export const CurrentLocationContainer = createContainer(() => {
     (async () => {
       const location = await getCurrentGeolocation();
 
-      const { latitude: lat, longitude: lng } = location.coords;
+      const { latitude, longitude } = location.coords;
 
-      setCurrentLocation({ lat, lng });
+      setCurrentLocation({ latitude, longitude });
     })();
   }, []);
 
