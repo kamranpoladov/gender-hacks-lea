@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { Gender, Host } from '../../../types';
 import {
   hostDescriptions,
-  hostLocationOffsets,
   hostNames,
   hostProfileColors,
   hostProfilePictures,
@@ -11,6 +10,7 @@ import {
   hostTags
 } from '../../constants';
 import { CurrentLocationContainer } from '../../containers';
+import { rand } from '../../../utils';
 
 const generateMockHosts = (latitude: number, longitude: number) => {
   const hosts = Array(HOSTS_AMOUNT)
@@ -21,8 +21,8 @@ const generateMockHosts = (latitude: number, longitude: number) => {
         name: hostNames[i],
         description: hostDescriptions[i],
         location: {
-          latitude: latitude - hostLocationOffsets[i],
-          longitude: longitude - hostLocationOffsets[i]
+          latitude: latitude + rand(-0.01, 0.01),
+          longitude: longitude + rand(-0.01, 0.01)
         },
         tags: hostTags[index],
         gender: Math.random() > 0.5 ? Gender.M : Gender.F,

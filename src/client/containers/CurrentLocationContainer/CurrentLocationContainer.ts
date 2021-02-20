@@ -13,7 +13,7 @@ export const CurrentLocationContainer = createContainer(() => {
       const { latitude, longitude } = location.coords;
       setCurrentLocation({ latitude, longitude });
     })();
-  }, [currentLocation]);
+  }, []);
 
   return { currentLocation, setCurrentLocation };
 });

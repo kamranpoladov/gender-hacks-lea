@@ -1,3 +1,4 @@
+import { Box, createStyles, makeStyles } from '@material-ui/core';
 import { easeCubic } from 'd3-ease';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
@@ -24,9 +25,19 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 
 const SIZE = 20;
 
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      position: 'fixed',
+      top: 0,
+      zIndex: 1000
+    }
+  })
+);
+
 function Map() {
   const { hosts } = MockHostsContainer.useContainer();
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  const classes = useStyles();
   const [viewport, setViewport] = useState<ViewportProps>({
     latitude: 40.4093,
     longitude: 49.8671,
@@ -47,56 +58,59 @@ function Map() {
       ...viewport,
       ...location
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedHostLocation]);
 
   return (
-    <MapGL
-      {...viewport}
-      width="350px"
-      height="400px"
-      mapStyle="mapbox://styles/rafasofizada/ckldphltm2udo17ql8m94lfaz"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-    >
-      <GeolocateControl
-        style={geolocateStyle}
-        positionOptions={positionOptions}
-        trackUserLocation
-        auto
-      />
+    <Box className={classes.root}>
+      <MapGL
+        {...viewport}
+        width="350px"
+        height="400px"
+        mapStyle="mapbox://styles/rafasofizada/ckldphltm2udo17ql8m94lfaz"
+        onViewportChange={setViewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      >
+        <GeolocateControl
+          style={geolocateStyle}
+          positionOptions={positionOptions}
+          trackUserLocation
+          auto
+        />
 
-      {hosts.map((host, i) => (
-        <Marker
-          key={`location-market--${i}`}
-          latitude={host.location.latitude}
-          longitude={host.location.longitude}
-        >
-          <svg
-            height={SIZE}
-            viewBox="0 0 24 24"
-            style={{
-              cursor: 'pointer',
-              fill: '#d00',
-              stroke: 'none',
-              transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
-            }}
-            onClick={() => {
-              host.ref.current?.click();
-
-              setViewport({
-                ...viewport,
-                ...host.location,
-                transitionDuration: 1000,
-                transitionInterpolator: new FlyToInterpolator(),
-                transitionEasing: easeCubic
-              });
-            }}
+        {hosts.map((host, i) => (
+          <Marker
+            key={`location-market--${i}`}
+            latitude={host.location.latitude}
+            longitude={host.location.longitude}
           >
-            <path d={ICON} />
-          </svg>
-        </Marker>
-      ))}
-    </MapGL>
+            <svg
+              height={SIZE}
+              viewBox="0 0 24 24"
+              style={{
+                cursor: 'pointer',
+                fill: '#d00',
+                stroke: 'none',
+                transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
+              }}
+              onClick={() => {
+                host.ref.current?.click();
+
+                setViewport({
+                  ...viewport,
+                  ...host.location,
+                  transitionDuration: 1000,
+                  transitionInterpolator: new FlyToInterpolator(),
+                  transitionEasing: easeCubic
+                });
+              }}
+            >
+              <path d={ICON} />
+            </svg>
+          </Marker>
+        ))}
+      </MapGL>
+    </Box>
   );
 }
 
