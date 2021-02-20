@@ -2,8 +2,14 @@ import { useMockHosts } from '../../services';
 import { Card, CardHeader, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 import { HostCard } from './components';
+import { Dispatch, SetStateAction } from 'react';
+import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
 
-export const HostsList = () => {
+type HostsListProps = {
+  setSelectedHostLocation: Dispatch<SetStateAction<LatLngLiteral | undefined>>;
+};
+
+export const HostsList = ({ setSelectedHostLocation }: HostsListProps) => {
   const hosts = useMockHosts(10);
 
   if (!hosts) return null;
@@ -18,7 +24,11 @@ export const HostsList = () => {
         }
       />
       {hosts.map((host, i) => (
-        <HostCard key={i} host={host} />
+        <HostCard
+          key={i}
+          host={host}
+          setSelectedHostLocation={setSelectedHostLocation}
+        />
       ))}
     </Card>
   );
