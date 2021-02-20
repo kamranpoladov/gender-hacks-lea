@@ -1,4 +1,4 @@
-import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import { LatLngLiteral } from './location';
 
 export enum HostTags {
   KID_FRIENDLY = 'Uşaqlar',
