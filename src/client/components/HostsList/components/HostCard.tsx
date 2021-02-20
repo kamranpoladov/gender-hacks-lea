@@ -11,7 +11,7 @@ import { useCalculateDistance } from '../hooks';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { HostCardOverview } from './HostCardOverview';
 import { HostCardFull } from './HostCardFull';
-import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import { LatLngLiteral } from '../../../../types';
 
 type HostCardProps = {
   host: Host;

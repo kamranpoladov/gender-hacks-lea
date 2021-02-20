@@ -2,7 +2,7 @@ import { Card, CardHeader, IconButton } from '@material-ui/core';
 import { FilterList } from '@material-ui/icons';
 import { HostCard } from './components';
 import { Dispatch, SetStateAction } from 'react';
-import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
+import { LatLngLiteral } from '../../../types';
 import { useMockHosts } from '../../services';
 
 type HostsListProps = {

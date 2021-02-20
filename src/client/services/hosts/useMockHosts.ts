@@ -18,14 +18,15 @@ const generateMockHosts = (latitude: number, longitude: number) => {
         name: hostNames[i],
         description: hostDescriptions[i],
         location: {
-          lat: latitude - hostLocationOffsets[i],
-          lng: longitude - hostLocationOffsets[i]
+          latitude: latitude - hostLocationOffsets[i],
+          longitude: longitude - hostLocationOffsets[i]
         },
         tags: hostTags[index],
         gender: Math.random() > 0.5 ? Gender.M : Gender.F,
         Icon: hostProfilePictures[index],
         profileColor: hostProfileColors[index]
       };
+
       return host;
     });
 
@@ -33,13 +34,13 @@ const generateMockHosts = (latitude: number, longitude: number) => {
 };
 
 export const useMockHosts = () => {
-  const { data: location } = useGetCurrentLocation();
+  const { data: geolocation } = useGetCurrentLocation();
 
-  if (!location) return null;
+  if (!geolocation) return null;
 
   const {
     coords: { latitude, longitude }
-  } = location;
+  } = geolocation;
 
   const hosts = generateMockHosts(latitude, longitude);
 
