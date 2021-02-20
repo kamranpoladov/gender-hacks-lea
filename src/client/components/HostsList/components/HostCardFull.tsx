@@ -89,8 +89,8 @@ export const HostCardFull = ({ host, distance }: HostCardFullProps) => {
         <Typography className={styles.misc}>{distance}</Typography>
       </CardContent>
       <CardActions className={styles.actions}>
-        <Button className={styles.action}>Book</Button>
-        <Button className={styles.action}>Message</Button>
+        <Button className={styles.action}>Rezervasiya</Button>
+        <Button className={styles.action}>Mesaj</Button>
       </CardActions>
     </Card>
   );

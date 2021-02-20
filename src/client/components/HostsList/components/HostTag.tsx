@@ -8,7 +8,13 @@ import {
   Typography
 } from '@material-ui/core';
 import { HostTags } from '../../../../types';
-import { ChildCare, Pets, Home, Wifi } from '@material-ui/icons/';
+import {
+  ChildCare,
+  Pets,
+  Home,
+  Wifi,
+  CalendarToday
+} from '@material-ui/icons/';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
 type HostTagProps = {
@@ -55,8 +61,12 @@ export const HostTag = ({ tag }: HostTagProps) => (
       <HostTagInner text={HostTags.PET_FRIENDLY} Icon={Pets} />
     ) : tag === HostTags.SINGLE_ROOM ? (
       <HostTagInner text={HostTags.SINGLE_ROOM} Icon={Home} />
-    ) : tag == HostTags.WIFI ? (
+    ) : tag === HostTags.WIFI ? (
       <HostTagInner text={HostTags.WIFI} Icon={Wifi} />
+    ) : tag === HostTags.ONE_WEEK ? (
+      <HostTagInner text={HostTags.ONE_WEEK} Icon={CalendarToday} />
+    ) : tag === HostTags.TWO_WEEKS ? (
+      <HostTagInner text={HostTags.TWO_WEEKS} Icon={CalendarToday} />
     ) : null}
   </Box>
 );

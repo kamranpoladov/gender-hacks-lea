@@ -1,9 +1,11 @@
 import { LatLngLiteral } from '@googlemaps/google-maps-services-js';
 
 export enum HostTags {
-  KID_FRIENDLY = 'Kid friendly',
-  SINGLE_ROOM = 'Single room',
-  PET_FRIENDLY = 'Pet friendly',
+  KID_FRIENDLY = 'Uşaqlar',
+  SINGLE_ROOM = 'Tək otaq',
+  PET_FRIENDLY = 'Ev heyvani',
+  ONE_WEEK = '1 həftəyədək',
+  TWO_WEEKS = '2 həftəyədək',
   WIFI = 'WiFi'
 }
 
