@@ -11,7 +11,7 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
 
   const { data: myAddress, isFetching } = useMyAddressLookup();
 
-  const hosts = useMockHosts(10);
+  const hosts = useMockHosts();
 
   if (!myAddress || isFetching) return null;
 
