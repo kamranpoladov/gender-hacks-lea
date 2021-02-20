@@ -23,11 +23,7 @@ const LocationMask = () => {
 
   if (!directions || isFetching) return null;
 
-  return (
-    <Map>
-      <DirectionsRenderer options={{ directions }} />
-    </Map>
-  );
+  return <Map></Map>;
 };
 
 export default memo(LocationMask);

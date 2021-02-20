@@ -1,9 +1,15 @@
+import { easeCubic } from 'd3-ease';
 import * as React from 'react';
-import { useState } from 'react';
-import MapGL, { GeolocateControl, Marker, ViewportProps } from 'react-map-gl';
+import { useEffect, useState } from 'react';
+import MapGL, {
+  FlyToInterpolator,
+  GeolocateControl,
+  Marker,
+  ViewportProps
+} from 'react-map-gl';
+import { SelectedHostLocationContainer } from '../../containers';
 
 import { useMockHosts } from '../../services';
-import { viewportFlyTo } from './viewportFlyTo';
 
 const geolocateStyle = {
   top: 0,
@@ -19,15 +25,28 @@ const ICON = `M20.2,15.7L20.2,15.7c1.1-1.6,1.8-3.6,1.8-5.7c0-5.6-4.5-10-10-10S2,
 
 const SIZE = 20;
 
-const Map = ({ children }: { children?: React.ReactNode }) => {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+function Map() {
   const [viewport, setViewport] = useState<ViewportProps>({
-    latitude: 37.8,
-    longitude: 96,
+    latitude: 40.4093,
+    longitude: 49.8671,
     zoom: 3,
     bearing: 0,
     pitch: 0
   });
+
+  const { selectedHostLocation } = SelectedHostLocationContainer.useContainer();
+
+  useEffect(() => {
+    const location = selectedHostLocation || {
+      latitude: viewport.latitude,
+      longitude: viewport.longitude
+    };
+
+    setViewport({
+      ...viewport,
+      ...location
+    });
+  }, [selectedHostLocation]);
 
   const hosts = useMockHosts();
 
@@ -63,7 +82,13 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
               transform: `translate(${-SIZE / 2}px,${-SIZE}px)`
             }}
             onClick={() => {
-              viewportFlyTo(viewport, setViewport, host.location);
+              setViewport({
+                ...viewport,
+                ...host.location,
+                transitionDuration: 1000,
+                transitionInterpolator: new FlyToInterpolator(),
+                transitionEasing: easeCubic
+              });
             }}
           >
             <path d={ICON} />
@@ -72,6 +97,6 @@ const Map = ({ children }: { children?: React.ReactNode }) => {
       ))}
     </MapGL>
   );
-};
+}
 
 export default React.memo(Map);
