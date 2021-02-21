@@ -16,6 +16,7 @@ export enum Gender {
 }
 
 export type Host = {
+  id: string;
   name: string;
   description: string;
   tags: HostTags[];

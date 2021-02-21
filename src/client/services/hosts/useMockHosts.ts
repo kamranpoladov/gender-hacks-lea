@@ -18,6 +18,7 @@ const generateMockHosts = (latitude: number, longitude: number) => {
     .map((_, i) => {
       const index = i % 3;
       const host: Host = {
+        id: (i + 1).toString(),
         name: hostNames[i],
         description: hostDescriptions[i],
         location: {

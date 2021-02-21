@@ -1,4 +1,5 @@
 export const ROUTES = {
   ROOT: '/',
-  HOSTS: '/hosts'
+  HOSTS: '/hosts',
+  BOOK: '/book/:hostId'
 };
