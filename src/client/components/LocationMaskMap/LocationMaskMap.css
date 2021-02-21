@@ -1,6 +1,6 @@
 .map-container {
   width: 400px;
-  height: 400px;
+  height: 90vh;
 }
 
 /* Mapboxgl Geocoder */
@@ -14,6 +14,7 @@
   box-sizing: border-box;
 }
 .mapboxgl-ctrl-geocoder {
+  display: none;
   font: 15px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   position: relative;
   background-color: white;
@@ -94,6 +95,9 @@
   z-index: 1000;
   overflow: hidden;
   font-size: 12px;
+}
+.mapboxgl-ctrl-bottom-right {
+  display: none;
 }
 .mapboxgl-ctrl-bottom-left .mapboxgl-ctrl-geocoder ul,
 .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-geocoder ul {
@@ -230,6 +234,7 @@
 }
 
 .mapbox-form-label {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;

@@ -8513,9 +8513,7 @@
                 key: 'on',
                 value: function on(type, fn) {
                   this._ev.on(type, fn);
-                  this._ev.on('error', function (err) {
-                    console.log(err);
-                  });
+                  this._ev.on('error', function (err) {});
                   return this;
                 }
                 /**
