@@ -8,6 +8,7 @@ import MapGL, {
   Marker,
   ViewportProps
 } from 'react-map-gl';
+import { defaultMapViewport } from '../../constants';
 import { SelectedHostLocationContainer } from '../../containers';
 import { MockHostsContainer } from '../../containers';
 
@@ -37,14 +38,9 @@ const useStyles = makeStyles(() =>
 
 function Map() {
   const { hosts } = MockHostsContainer.useContainer();
+  // eslint-disable-next-line @typescript-eslint/ban-types
   const classes = useStyles();
-  const [viewport, setViewport] = useState<ViewportProps>({
-    latitude: 40.4093,
-    longitude: 49.8671,
-    zoom: 3,
-    bearing: 0,
-    pitch: 0
-  });
+  const [viewport, setViewport] = useState<ViewportProps>(defaultMapViewport);
 
   const { selectedHostLocation } = SelectedHostLocationContainer.useContainer();
 
