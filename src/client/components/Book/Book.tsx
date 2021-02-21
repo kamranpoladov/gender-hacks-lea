@@ -1,11 +1,7 @@
 import { useParams } from 'react-router-dom';
 
-type Params = {
-  hostId: string;
-};
-
 export const Book = () => {
-  const { hostId } = useParams<Params>();
+  const { id } = useParams<{ id: string }>();
 
-  return <p style={{ color: 'black' }}>{hostId}</p>;
+  return <p style={{ color: 'black' }}>{id}</p>;
 };

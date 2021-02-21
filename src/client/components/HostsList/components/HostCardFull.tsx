@@ -8,7 +8,6 @@ import {
   CardActions,
   Button
 } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import { Host } from '../../../../types';
 import { HostTag } from './HostTag';
 
@@ -74,10 +73,9 @@ const useStyles = makeStyles(theme =>
 
 export const HostCardFull = ({ host, distance }: HostCardFullProps) => {
   const styles = useStyles();
-  const history = useHistory();
 
   const handleBook = () => {
-    history.push(`/book/${host.id}`);
+    location.replace(`book/${host.id}`);
   };
 
   return (
@@ -96,7 +94,7 @@ export const HostCardFull = ({ host, distance }: HostCardFullProps) => {
       </CardContent>
       <CardActions className={styles.actions}>
         <Button onClick={handleBook} className={styles.action}>
-          Da
+          Reservasiya
         </Button>
         <Button className={styles.action}>Mesaj</Button>
       </CardActions>
