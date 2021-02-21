@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import { defaultMapViewport } from '../../constants';
 import './LocationMaskMap.css';
@@ -19,6 +19,9 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
   const mapContainerRef = useRef(null);
   const { currentLocation } = CurrentLocationContainer.useContainer();
 
+  const [fakeLocation, setFakeLocation] = useState([0, 0]);
+  const [selectFakeLocation, setSelectFakeLocation] = useState(true);
+
   // Initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -27,6 +30,8 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
       center: [currentLocation.longitude, currentLocation.latitude],
       zoom: defaultMapViewport.zoom
     });
+
+    // You -> Host directions
 
     const directions = new MapboxDirections({
       accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
@@ -52,6 +57,12 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
       (document.querySelector(
         'label[for=mapbox-directions-profile-walking]'
       ) as HTMLElement).click();
+    });
+
+    // You -> Fake location directions
+
+    map.on('move', () => {
+      setFakeLocation([map.getCenter().lng, map.getCenter().lat]);
     });
 
     // Clean up on unmount
