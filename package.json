@@ -5,6 +5,7 @@
   "author": "kamranpoladov <kamranpoladov1803@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "react-scripts start",
     "client:start": "react-scripts start",
     "client:build": "react-scripts build",
     "server:start": "ts-node --project src/server/tsconfig.json src/server/main.ts",
