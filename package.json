@@ -14,9 +14,6 @@
     "fix:lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --color --fix",
     "fix:prettier": "prettier --write \"./{src,types,scripts}/**/*.{js,jsx,json,ts,tsx,scss}\""
   },
-  "engines": {
-    "node": "14.x"
-  },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.1.16",
     "@mapbox/mapbox-gl-directions": "^4.1.0",
