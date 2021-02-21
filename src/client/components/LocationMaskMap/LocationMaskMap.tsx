@@ -5,6 +5,9 @@ import './LocationMaskMap.css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import MapboxDirectionsMock from './mock-mapbox';
 import { LatLngLiteral } from '../../../types';
 import { CurrentLocationContainer } from '../../containers';
 
@@ -19,14 +22,13 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
   const mapContainerRef = useRef(null);
   const { currentLocation } = CurrentLocationContainer.useContainer();
 
-  const [fakeLocation, setFakeLocation] = useState([0, 0]);
-  const [selectFakeLocation, setSelectFakeLocation] = useState(true);
-
   // Initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: (mapContainerRef.current as unknown) as HTMLElement,
       style: process.env.REACT_APP_MAPBOX_STYLE,
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       center: [currentLocation.longitude, currentLocation.latitude],
       zoom: defaultMapViewport.zoom
     });
@@ -46,6 +48,8 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
     map.addControl(directions);
 
     directions
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       .setOrigin([currentLocation.longitude, currentLocation.latitude])
       .setDestination([destination.longitude, destination.latitude]);
 
@@ -61,9 +65,23 @@ function LocationMaskMap({ destination }: LocationMaskMapProps) {
 
     // You -> Fake location directions
 
-    map.on('move', () => {
-      setFakeLocation([map.getCenter().lng, map.getCenter().lat]);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    const fakeDirections = new MapboxDirectionsMock({
+      accessToken: process.env.REACT_APP_MAPBOX_TOKEN,
+      controls: {
+        inputs: true,
+        instructions: false,
+        profileSwitcher: true
+      }
     });
+
+    fakeDirections
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      .setOrigin([currentLocation.longitude, currentLocation.latitude]);
+
+    map.addControl(fakeDirections);
 
     // Clean up on unmount
     return () => map.remove();
