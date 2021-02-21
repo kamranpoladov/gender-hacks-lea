@@ -8,8 +8,6 @@
     "start": "react-scripts start",
     "client:start": "react-scripts start",
     "client:build": "react-scripts build",
-    "server:start": "ts-node --project src/server/tsconfig.json src/server/main.ts",
-    "server:start:dev": "ts-node-dev --project src/server/tsconfig.json src/server/main.ts",
     "test:types": "tsc",
     "test:lint": "eslint src/ --ext .jsx,.js,.ts,.tsx --color",
     "test:prettier": "prettier --check \"./{src,types,scripts}/**/*.{js,jsx,json,ts,tsx,scss}\"",
