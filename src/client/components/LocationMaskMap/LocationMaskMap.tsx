@@ -5,19 +5,26 @@ import './LocationMaskMap.css';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import MapboxDirections from '@mapbox/mapbox-gl-directions/dist/mapbox-gl-directions';
+import { LatLngLiteral } from '../../../types';
+import { CurrentLocationContainer } from '../../containers';
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN!;
 
-function LocationMaskMap() {
+type LocationMaskMapProps = {
+  destination: LatLngLiteral;
+};
+
+function LocationMaskMap({ destination }: LocationMaskMapProps) {
   const mapContainerRef = useRef(null);
+  const { currentLocation } = CurrentLocationContainer.useContainer();
 
   // Initialize map when component mounts
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: (mapContainerRef.current as unknown) as HTMLElement,
       style: process.env.REACT_APP_MAPBOX_STYLE,
-      center: [defaultMapViewport.longitude, defaultMapViewport.latitude],
+      center: [currentLocation.longitude, currentLocation.latitude],
       zoom: defaultMapViewport.zoom
     });
 
@@ -34,19 +41,16 @@ function LocationMaskMap() {
     map.addControl(directions);
 
     directions
-      .setOrigin([defaultMapViewport.longitude, defaultMapViewport.latitude])
-      .setDestination([
-        defaultMapViewport.longitude - 0.1,
-        defaultMapViewport.latitude - 0.1
-      ]);
+      .setOrigin([currentLocation.longitude, currentLocation.latitude])
+      .setDestination([destination.longitude, destination.latitude]);
 
     (document.querySelector(
-      '#root > div > div > div > div > div.mapboxgl-control-container > div.mapboxgl-ctrl-top-right > div'
+      '.mapboxgl-ctrl-directions.mapboxgl-ctrl'
     ) as HTMLElement).style.opacity = '0';
 
     directions._map.on('load', () => {
       (document.querySelector(
-        '#root > div > div > div > div > div.mapboxgl-control-container > div.mapboxgl-ctrl-top-right > div > div > div > div.mapbox-directions-profile.mapbox-directions-component-keyline.mapbox-directions-clearfix > label:nth-child(6)'
+        'label[for=mapbox-directions-profile-walking]'
       ) as HTMLElement).click();
     });
 

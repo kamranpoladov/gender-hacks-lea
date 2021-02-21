@@ -4,18 +4,17 @@ import { LatLngLiteral } from '../../../types';
 import { getCurrentGeolocation } from '../../services';
 
 export const CurrentLocationContainer = createContainer(() => {
-  const [currentLocation, setCurrentLocation] = useState<LatLngLiteral>();
+  const [currentLocation, setCurrentLocation] = useState<LatLngLiteral>({
+    latitude: 40.4093,
+    longitude: 49.8671
+  });
 
   useEffect(() => {
     (async () => {
-      try {
-        const location = await getCurrentGeolocation();
+      const location = await getCurrentGeolocation();
 
-        const { latitude, longitude } = location.coords;
-        setCurrentLocation({ latitude, longitude });
-      } catch (err) {
-        setCurrentLocation({ latitude: 50, longitude: 7 });
-      }
+      const { latitude, longitude } = location.coords;
+      setCurrentLocation({ latitude, longitude });
     })();
   }, []);
 

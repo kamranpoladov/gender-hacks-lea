@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Host } from '../../../types';
 import { MockHostsContainer } from '../../containers';
+import LocationMaskMap from '../LocationMaskMap/LocationMaskMap';
 
 export const Book = () => {
   const { id } = useParams<{ id: string }>();
@@ -15,9 +16,5 @@ export const Book = () => {
 
   if (!host) return null;
 
-  return (
-    <div>
-      <p style={{ color: 'black' }}>{host.name}</p>
-    </div>
-  );
+  return <LocationMaskMap destination={host.location} />;
 };
